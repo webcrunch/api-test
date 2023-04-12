@@ -21,7 +21,7 @@ jobs:
       - name: build dist
         run:  npm run build --if-present
       - name: fire up backend 
-        run: npm run backend
+        run: npm run execute
 
       # - name: newman test
       #   run: npm test
@@ -32,7 +32,7 @@ jobs:
   anotherOneBitsTheDust: 
     needs: build
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: newman test
         run: npm test
