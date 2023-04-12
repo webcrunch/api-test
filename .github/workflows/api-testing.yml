@@ -23,10 +23,11 @@ jobs:
       - name: fire up backend 
         run: npm run backend
       - name: newman test
-        uses: matt-ball/newman-action@master
-        with:
-          collection: Cinema-test.postman_collection.json
-          environment: postman_environment.json
+        run: npm test
+        # uses: matt-ball/newman-action@master
+        # with:
+        #   collection: Cinema-test.postman_collection.json
+        #   environment: postman_environment.json
 
 # name: API Tests
 
