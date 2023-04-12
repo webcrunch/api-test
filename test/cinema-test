@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "c1385740-3572-4344-926d-69dca2232ec4",
+		"name": "Cinema-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create users",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"if(!pm.environment.get('mockData')){\r",
+							"    pm.environment.set('mockData', JSON.stringify([\r",
+							"{\r",
+							"  \"email\": \"nmcguinness0@reference.com\",\r",
+							"  \"password\": \"nZs51Gzg6\",\r",
+							"  \"firstName\": \"Aimée\",\r",
+							"  \"lastName\": \"McGuinness\",\r",
+							"  \"phoneNumber\": \"180-417-0095\",\r",
+							"  \"userRole\": null\r",
+							"}, {\r",
+							"  \"email\": \"dgritton1@gov.uk\",\r",
+							"  \"password\": \"cyh1Jgrzw\",\r",
+							"  \"firstName\": \"Athéna\",\r",
+							"  \"lastName\": \"Gritton\",\r",
+							"  \"phoneNumber\": \"913-481-6256\",\r",
+							"  \"userRole\": null\r",
+							"}, {\r",
+							"  \"email\": \"cburrus2@adobe.com\",\r",
+							"  \"password\": \"jmcQYV\",\r",
+							"  \"firstName\": \"Angélique\",\r",
+							"  \"lastName\": \"Burrus\",\r",
+							"  \"phoneNumber\": \"296-166-6235\",\r",
+							"  \"userRole\": null\r",
+							"}, {\r",
+							"  \"email\": \"bsmee3@biglobe.ne.jp\",\r",
+							"  \"password\": \"Akyr58X\",\r",
+							"  \"firstName\": \"Cunégonde\",\r",
+							"  \"lastName\": \"Smee\",\r",
+							"  \"phoneNumber\": \"692-459-2481\",\r",
+							"  \"userRole\": null\r",
+							"}, {\r",
+							"  \"email\": \"sscanlan4@wikimedia.org\",\r",
+							"  \"password\": \"XqufYKyro1k\",\r",
+							"  \"firstName\": \"Noëlla\",\r",
+							"  \"lastName\": \"Scanlan\",\r",
+							"  \"phoneNumber\": \"302-676-1991\",\r",
+							"  \"userRole\": null\r",
+							"}, {\r",
+							"  \"email\": \"mexposito5@joomla.org\",\r",
+							"  \"password\": \"OxAgYY5x\",\r",
+							"  \"firstName\": \"Yénora\",\r",
+							"  \"lastName\": \"Exposito\",\r",
+							"  \"phoneNumber\": \"374-438-2788\",\r",
+							"  \"userRole\": null\r",
+							"}, {\r",
+							"  \"email\": \"vexposito6@acquirethisname.com\",\r",
+							"  \"password\": \"g8RMR6EdO9\",\r",
+							"  \"firstName\": \"Angélique\",\r",
+							"  \"lastName\": \"Exposito\",\r",
+							"  \"phoneNumber\": \"819-583-0621\",\r",
+							"  \"userRole\": null\r",
+							"}]))\r",
+							"    pm.environment.set('userIndex', '0')\r",
+							"} \r",
+							"\r",
+							"let mockData = JSON.parse(pm.environment.get('mockData'))\r",
+							"let userIndex = +pm.environment.get('userIndex')\r",
+							"let user = mockData[userIndex]\r",
+							"\r",
+							"for(let [key,val] of Object.entries(user)){\r",
+							"    pm.environment.set(key,val)\r",
+							"}\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let res = pm.response.json()\r",
+							"\r",
+							"pm.test(\"Expected status code 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"check that affeted rows is 1\", () => {\r",
+							"    pm.expect(res.affectedRows).to.equal(1)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"check that inserted id above zero\", () => {\r",
+							"    pm.expect(res.insertId).gte(1) //.to.be.above(0)\r",
+							"})\r",
+							"\r",
+							"let mockData = JSON.parse(pm.environment.get('mockData'))\r",
+							"let userIndex = +pm.environment.get('userIndex')\r",
+							"\r",
+							"\r",
+							"mockData[userIndex].id = res.insertId\r",
+							"pm.environment.set('mockData', JSON.stringify(mockData))\r",
+							"\r",
+							"\r",
+							"userIndex++\r",
+							"if(!mockData[userIndex]){\r",
+							"    pm.environment.set('userIndex',0)\r",
+							"}\r",
+							"else{\r",
+							"    pm.environment.set('userIndex', userIndex)\r",
+							"    postman.setNextRequest('Create users')\r",
+							"}\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"email\":      \"{{email}}\",\r\n \"password\":   \"{{password}}\",\r\n \"firstName\":  \"{{firstName}}\",\r\n \"lastName\":   \"{{lastName}}\",\r\n \"phoneNumber\": \"{{phoneNumber}}\"       \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let mockData = JSON.parse(pm.environment.get('mockData'))\r",
+							"let userIndex = +pm.environment.get('userIndex')\r",
+							"let user = mockData[userIndex]\r",
+							"\r",
+							"pm.environment.set('id', user.id)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let res = pm.response.json()\r",
+							"let mockData = JSON.parse(pm.environment.get('mockData'))\r",
+							"console.log(\"mockData\", mockData)\r",
+							"let userIndex = +pm.environment.get('userIndex')\r",
+							"let user = mockData[userIndex]\r",
+							"console.log(user)\r",
+							"\r",
+							" pm.test(\"Expected status code 200\", () => {\r",
+							"     pm.expect(pm.response.code).to.equal(200)\r",
+							" })\r",
+							"\r",
+							" pm.test('expect db values to equal original values for users ...', () =>{\r",
+							"     let userWithoutPassword = {...user, password: null}\r",
+							"     let responseWithoutPassword = {...res, password: null}\r",
+							"     pm.expect(userWithoutPassword).to.deep.equal(responseWithoutPassword)\r",
+							" })\r",
+							"\r",
+							"userIndex++\r",
+							"if(!mockData[userIndex]){\r",
+							"    pm.environment.set('userIndex',0)\r",
+							"}\r",
+							"else{\r",
+							"    pm.environment.set('userIndex', userIndex)\r",
+							"    postman.setNextRequest('Read user')\r",
+							"}\r",
+							"\r",
+							"//console.log(\"status\", pm.response.code)\r",
+							"//console.log(\"response\",res)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/users/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let mockData = JSON.parse(pm.environment.get('mockData'))\r",
+							"let userIndex = +pm.environment.get('userIndex')\r",
+							"let user = mockData[userIndex]\r",
+							"\r",
+							"pm.environment.set('id', user.id)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let res = pm.response.json()\r",
+							"let mockData = JSON.parse(pm.environment.get('mockData'))\r",
+							"let userIndex = +pm.environment.get('userIndex')\r",
+							"\r",
+							"\r",
+							"pm.test(\"Expected status code 200\", () => {\r",
+							"    pm.expect(pm.response.code).to.equal(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"check that affeted rows is 1\", () => {\r",
+							"    pm.expect(res.affectedRows).to.equal(1)\r",
+							"})\r",
+							"\r",
+							"\r",
+							"userIndex++\r",
+							"if(!mockData[userIndex]){\r",
+							"    pm.environment.set('userIndex',0)\r",
+							"}\r",
+							"else{\r",
+							"    pm.environment.set('userIndex', userIndex)\r",
+							"    postman.setNextRequest('Delete user')\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/users/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
