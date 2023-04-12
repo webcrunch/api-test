@@ -3,7 +3,7 @@ name: API Tests
 on: [pull_request, push]
 
 jobs: 
-  buildAndRunAPITests:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -22,12 +22,18 @@ jobs:
         run:  npm run build --if-present
       - name: fire up backend 
         run: npm run backend
-      - name: newman test
-        run: npm test
+        
+      # - name: newman test
+      #   run: npm test
         # uses: matt-ball/newman-action@master
         # with:
         #   collection: Cinema-test.postman_collection.json
         #   environment: postman_environment.json
+  anotherOneBitsTheDust: 
+    needs: build
+    - name: newman test
+        run: npm test
+
 
 # name: API Tests
 
