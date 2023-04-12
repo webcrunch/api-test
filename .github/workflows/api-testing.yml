@@ -33,7 +33,7 @@ jobs:
       - name: test mysql status
         run: service mysql status
       - name: seed to mysql
-        run: npm seed-db
+        run: npm run seed-db
       - name: fire up backend 
         run: nohup npm run backend & exit
       - name: newman test
