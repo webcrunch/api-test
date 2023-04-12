@@ -22,7 +22,7 @@ jobs:
         run:  npm run build --if-present
       - name: fire up backend 
         run: npm run backend
-        
+
       # - name: newman test
       #   run: npm test
         # uses: matt-ball/newman-action@master
@@ -31,7 +31,8 @@ jobs:
         #   environment: postman_environment.json
   anotherOneBitsTheDust: 
     needs: build
-    - name: newman test
+    steps:
+      - name: newman test
         run: npm test
 
 
