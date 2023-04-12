@@ -1,6 +1,9 @@
 name: API Tests
 
-on: [pull_request, push]
+on: 
+  [push,pull_request]:
+    branches:
+      [dev,main]
 
 jobs: 
   build:
@@ -19,7 +22,6 @@ jobs:
       - name: npm install
         run: npm ci
       - name: start mysql
-      #  run: sudo service mysql start
         run: sudo service mysql start
       - name: change password
         run: mysqladmin --user=root --password=root password "user"
@@ -34,43 +36,3 @@ jobs:
       - name: newman test
         run: npm test
         
-
-# name: API Tests
-
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
-
-# # on: [pull_request, push]
-
-# jobs:
-#   buildAndTest:
-#     runs-on: ubuntu-latest
-
-#     strategy:
-#       matrix:
-#         node-version: [18.x]
-
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: ${{ matrix.node-version }}
-#       - name: npm install
-#         run: npm ci
-#       #-name: build dist folder
-#       # run: npm run build --if-present (build if there is something that could be builds)
-#       - name: fire upp backend
-#         run: npm backend
-#       name: newman test
-#       - uses: matt-ball/newman-action@master
-#       with:
-#         collection: postman_collection.json
-#         environment: postman_environment.json
-
-  
