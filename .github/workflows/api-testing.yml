@@ -19,23 +19,15 @@ jobs:
       - name: npm install
         run: npm ci 
       - name: build dist
-        run:  npm run build --if-present
-      - name: fire up backend 
-        run: npm run execute
-
-      # - name: newman test
-      #   run: npm test
+      #   run:  npm run build --if-present
+      # - name: fire up backend 
+        run: nohap npm run backend & exit
+      - name: newman test
+        run: npm test
         # uses: matt-ball/newman-action@master
         # with:
         #   collection: Cinema-test.postman_collection.json
-        #   environment: postman_environment.json
-  anotherOneBitsTheDust: 
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: newman test
-        run: npm test
+        #   environment: postman_environment.json  
 
 
 # name: API Tests

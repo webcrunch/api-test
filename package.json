@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "execute": "concurrently \"npm:backend\" \"npm:test\"",
     "start": "concurrently \"npm:backend\" \"npm:dev\"",
     "seed-db": "cd _seed_db && node seeder.js",
     "backend": "cd backend && node index.js",
