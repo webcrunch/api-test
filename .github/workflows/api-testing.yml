@@ -20,7 +20,7 @@ jobs:
         run: npm ci
       - name: start mysql
       #  run: sudo service mysql start
-        run sudo service mysql start
+        run: sudo service mysql start
       - name: change password
         run: mysqladmin --user=root --password=root password "user"
       - name: restart mysql 
