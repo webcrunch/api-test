@@ -25,8 +25,8 @@ jobs:
       - name: newman test
         uses: matt-ball/newman-action@master
         with:
-          collection: postman_collection.json
-        environment: postman_environment.json
+          collection: Cinema-test.postman_collection.json
+          environment: postman_environment.json
 
 # name: API Tests
 
