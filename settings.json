@@ -3,8 +3,8 @@
   "mySqlHost": "127.0.0.1",
   "mySqlPort": 3306,
   "database": "cinema",
-  "mySqlUser": "root", //user
-  "mySqlPassword": "user", //user
+  "mySqlUser": "root",
+  "mySqlPassword": "user",
   "passwordSalt": "someHardToGuessStringYouNeverChange",
   "sessionSalt": "someHardToGuessStringYouSeldomChange"
 }
