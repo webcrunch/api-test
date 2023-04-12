@@ -28,6 +28,8 @@ jobs:
           mysql password: user # Required if "mysql user" exists. The password for the "mysql user" 
       # - name: build dist
       #   run:  npm run build --if-present
+      - name: start mysql
+        run: service mysql start
       - name: test mysql status
         run: service mysql status
       - name: seed to mysql
