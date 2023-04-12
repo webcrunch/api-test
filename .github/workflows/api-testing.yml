@@ -31,6 +31,8 @@ jobs:
         #   environment: postman_environment.json
   anotherOneBitsTheDust: 
     needs: build
+    runs-on: ubuntu-latest
+    
     steps:
       - name: newman test
         run: npm test
