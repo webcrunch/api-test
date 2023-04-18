@@ -6,6 +6,7 @@ module.exports = class Acl {
   // req.sesssion.user -> logged in user if any
 
   static checkRoute(req, table, method, isTable, isView) {
+    return true; // dont need acl for this project
     let role = req.session.user ? (req.session.user.userRole || "logged in") : 'not logged in'
     console.log(['role:' + role, 'url:' + req.url, 'table:' + table, 'method:' + method,].join('\n'));
     //'isTable:' + isTable, 'isView:' + isView,

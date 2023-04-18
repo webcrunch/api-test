@@ -9,7 +9,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "newman run test/cinema-test.json"
+    "test": "newman run test/cinema-test-full.json"
   },
   "dependencies": {
     "express": "^4.18.2",
