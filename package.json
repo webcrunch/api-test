@@ -9,7 +9,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "newman run test/cinema-test-full.json && newman run test/booking-test.json",
+    "test": "newman run test/test.postman_collection.json",
     "test2": "newman run test/booking-test.json"
   },
   "dependencies": {
