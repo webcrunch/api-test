@@ -9,7 +9,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "newman run test/cinema-test-full.json"
+    "test": "newman run test/cinema-test-full.json && newman run test/booking-test.json",
+    "test2": "newman run test/booking-test.json"
   },
   "dependencies": {
     "express": "^4.18.2",

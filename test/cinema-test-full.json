@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "d8c11288-ce51-4765-a6f7-a094029c1045",
-		"name": "Cinema-test",
+		"_postman_id": "9f2cda43-971f-41fa-9900-375b6bcdabdb",
+		"name": "Cinema-test Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -256,7 +256,7 @@
 							"let userIndex = +pm.environment.get('userIndex')\r",
 							"let user = mockData[userIndex]\r",
 							"\r",
-							"console.log(user, \"mockdata\", mockData);\r",
+							"\r",
 							" pm.test(\"Expected status code 200\", () => {\r",
 							"     pm.expect(pm.response.code).to.equal(200)\r",
 							" })\r",
