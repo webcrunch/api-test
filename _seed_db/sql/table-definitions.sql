@@ -49,8 +49,7 @@ CREATE TABLE
 
 # Dump of table bookings
 # ------------------------------------------------------------
-DROP TABLE
-    IF EXISTS `bookings`;
+DROP TABLE IF EXISTS `bookings`;
 
 CREATE TABLE
     `bookings` (
@@ -191,7 +190,6 @@ CREATE TABLE
         `firstName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci NOT NULL,
         `lastName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci NOT NULL,
         `phoneNumber` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci NOT NULL,
-        `userRole` varchar(50) COLLATE utf8mb4_sv_0900_ai_ci DEFAULT NULL,
         PRIMARY KEY (`id`),
         UNIQUE KEY `email` (`email`)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_sv_0900_ai_ci;
