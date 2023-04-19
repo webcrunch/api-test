@@ -217,9 +217,9 @@
 <text text-anchor="start" x="711" y="-339.75" font-family="Times,serif" font-size="14.00">description:</text>
 <text text-anchor="start" x="775" y="-339.75" font-family="Helvetica,sans-Serif" font-style="oblique" font-size="10.00">JSON</text>
 </g>
-<!-- moviesXcategories -->
+<!-- moviesxcategories -->
 <g id="node6" class="node">
-<title>moviesXcategories</title>
+<title>moviesxcategories</title>
 <polygon fill="#a5b5e6" stroke="none" points="478,-540.95 478,-561.95 589,-561.95 589,-540.95 478,-540.95"/>
 <polygon fill="none" stroke="black" points="478,-540.95 478,-561.95 589,-561.95 589,-540.95 478,-540.95"/>
 <text text-anchor="start" x="481" y="-547.75" font-family="Times,serif" font-size="14.00">moviesXcategories</text>

@@ -13,6 +13,8 @@ CREATE VIEW TABLES_AND_VIEWS AS
 
 ;
 
+;
+
 CREATE VIEW SEATS_PER_AUDITORIUM AS 
 	SELECT
 	    auditoriums.*,
@@ -97,7 +99,7 @@ CREATE VIEW OCCUPIED_SEATS AS
 	    bookings,
 	    seats_per_auditorium
 	WHERE
-	    seats.id = bookingsXseats.seatId && bookings.id = bookingsXseats.bookingId && bookings.screeningId = screenings_overview.screeningId && seats_per_auditorium.name = screenings_overview.auditorium
+	    seats.id = bookingsxseats.seatId && bookings.id = bookingsxseats.bookingId && bookings.screeningId = screenings_overview.screeningId && seats_per_auditorium.name = screenings_overview.auditorium
 	GROUP BY
 	    screenings_overview.s
 SCREENINGID; 
