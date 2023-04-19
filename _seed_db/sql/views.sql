@@ -11,10 +11,6 @@ CREATE VIEW TABLES_AND_VIEWS AS
 
 ;
 
-;
-
-;
-
 CREATE VIEW SEATS_PER_AUDITORIUM AS 
 	SELECT
 	    auditoriums.*,
@@ -32,7 +28,7 @@ CREATE VIEW MOVIES_BY_CATEGORY AS
 	FROM
 	    categories,
 	    movies,
-	    moviesxcategories
+	    moviesXcategories
 	WHERE
 	    movies.id = moviesxcategories.movieId && categories.id = moviesxcategories.c
 CATEGORYID; 
@@ -75,7 +71,7 @@ CREATE VIEW BOOKINGS_OVERVIEW AS
 	    tickettypes,
 	    seats
 	WHERE
-	    bookings.screeningId = screenings_overview.screeningId && bookings.userId = users.id && bookingsXseats.bookingId = bookings.id && seats.id = bookingsXseats.seatId && ticketTypes.id = bookingsXseats.ticketTypeId
+	    bookings.screeningId = screenings_overview.screeningId && bookings.userId = users.id && bookingsxseats.bookingId = bookings.id && seats.id = bookingsxseats.seatId && ticketTypes.id = bookingsXseats.ticketTypeId
 	GROUP BY
 BOOKINGID; 
 
@@ -95,11 +91,11 @@ CREATE VIEW OCCUPIED_SEATS AS
 	FROM
 	    screenings_overview,
 	    seats,
-	    bookingsXseats,
+	    bookingsxseats,
 	    bookings,
 	    seats_per_auditorium
 	WHERE
-	    seats.id = bookingsxseats.seatId && bookings.id = bookingsxseats.bookingId && bookings.screeningId = screenings_overview.screeningId && seats_per_auditorium.name = screenings_overview.auditorium
+	    seats.id = bookingsXseats.seatId && bookings.id = bookingsXseats.bookingId && bookings.screeningId = screenings_overview.screeningId && seats_per_auditorium.name = screenings_overview.auditorium
 	GROUP BY
 	    screenings_overview.s
 SCREENINGID; 
@@ -110,18 +106,18 @@ CREATE VIEW TOTALS AS
 	    COUNT(*) AS totalPeople,
 	    SUM(ticketTypes.price) AS totalSales
 	FROM
-	    bookingsXseats,
-	    ticketTypes
+	    bookingsxseats,
+	    tickettypes
 	WHERE
-	    bookingsXseats.ticketTypeId = ticketTypes.id
-	GROUP BY ticketTypes.id
+	    bookingsxseats.ticketTypeId = ticketTypes.id
+	GROUP BY tickettypes.id
 	UNION
 	SELECT
 	    'TOTALS',
 	    COUNT(*),
-	    SUM(ticketTypes.price)
+	    SUM(tickettypes.price)
 	FROM
 	    bookingsXseats,
 	    ticketTypes
 	WHERE
-	    bookingsXseats.ticketTypeId = ticketTypes.id
+	    bookingsxseats.tickettypeId = tickettypes.id
