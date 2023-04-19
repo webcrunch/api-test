@@ -114,10 +114,10 @@ CREATE TABLE
 # Dump of table moviesXcategories
 # ------------------------------------------------------------
 DROP TABLE
-    IF EXISTS `moviesxcategories`;
+    IF EXISTS `moviesXcategories`;
 
 CREATE TABLE
-    `moviesxcategories` (
+    `moviesXcategories` (
         `movieId` int unsigned NOT NULL,
         `categoryId` int unsigned NOT NULL,
         PRIMARY KEY (`movieId`, `categoryId`),
@@ -167,10 +167,10 @@ CREATE TABLE
 # Dump of table ticketTypes
 # ------------------------------------------------------------
 DROP TABLE
-    IF EXISTS `tickettypes`;
+    IF EXISTS `ticketTypes`;
 
 CREATE TABLE
-    `tickettypes` (
+    `ticketTypes` (
         `id` int unsigned NOT NULL AUTO_INCREMENT,
         `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci NOT NULL,
         `price` int unsigned NOT NULL,

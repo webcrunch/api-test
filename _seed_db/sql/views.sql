@@ -1,15 +1,13 @@
 CREATE VIEW TABLES_AND_VIEWS AS 
 	SELECT TABLE_NAME AS name,
-	REPLACE (LOWER(TABLE_TYPE), "base ", "") AS type
+	REPLACE
+	(LOWER(TABLE_TYPE), "base ", "") AS type
 	FROM
 	    information_schema.tables
 	WHERE table_schema = (
-	        SELECT
-	            DATABASE() as db
+	        SELECT DATABASE() as db
 	    );
 ; 
-
-;
 
 CREATE VIEW SEATS_PER_AUDITORIUM AS 
 	SELECT
@@ -30,7 +28,7 @@ CREATE VIEW MOVIES_BY_CATEGORY AS
 	    movies,
 	    moviesXcategories
 	WHERE
-	    movies.id = moviesxcategories.movieId && categories.id = moviesxcategories.c
+	    movies.id = moviesXcategories.movieId && categories.id = moviesXcategories.c
 CATEGORYID; 
 
 CREATE VIEW SCREENINGS_OVERVIEW AS 
@@ -68,10 +66,10 @@ CREATE VIEW BOOKINGS_OVERVIEW AS
 	    users,
 	    bookingsxseats,
 	    screenings_overview,
-	    tickettypes,
+	    ticketTypes,
 	    seats
 	WHERE
-	    bookings.screeningId = screenings_overview.screeningId && bookings.userId = users.id && bookingsxseats.bookingId = bookings.id && seats.id = bookingsxseats.seatId && ticketTypes.id = bookingsXseats.ticketTypeId
+	    bookings.screeningId = screenings_overview.screeningId && bookings.userId = users.id && bookingsxseats.bookingId = bookings.id && seats.id = bookingsxseats.seatId && ticketTypes.id = bookingsxseats.ticketTypeId
 	GROUP BY
 BOOKINGID; 
 
@@ -95,9 +93,8 @@ CREATE VIEW OCCUPIED_SEATS AS
 	    bookings,
 	    seats_per_auditorium
 	WHERE
-	    seats.id = bookingsXseats.seatId && bookings.id = bookingsXseats.bookingId && bookings.screeningId = screenings_overview.screeningId && seats_per_auditorium.name = screenings_overview.auditorium
-	GROUP BY
-	    screenings_overview.s
+	    seats.id = bookingsxseats.seatId && bookings.id = bookingsxseats.bookingId && bookings.screeningId = screenings_overview.screeningId && seats_per_auditorium.name = screenings_overview.auditorium
+	GROUP BY screenings_overview.s
 SCREENINGID; 
 
 CREATE VIEW TOTALS AS 
@@ -107,17 +104,17 @@ CREATE VIEW TOTALS AS
 	    SUM(ticketTypes.price) AS totalSales
 	FROM
 	    bookingsxseats,
-	    tickettypes
+	    ticketTypes
 	WHERE
 	    bookingsxseats.ticketTypeId = ticketTypes.id
-	GROUP BY tickettypes.id
+	GROUP BY ticketTypes.id
 	UNION
 	SELECT
 	    'TOTALS',
 	    COUNT(*),
-	    SUM(tickettypes.price)
+	    SUM(ticketTypes.price)
 	FROM
-	    bookingsXseats,
+	    bookingsxseats,
 	    ticketTypes
 	WHERE
-	    bookingsxseats.tickettypeId = tickettypes.id
+	    bookingsxseats.ticketTypeId = ticketTypes.id
