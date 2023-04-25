@@ -36,7 +36,7 @@
 							"}\r",
 							"\r",
 							"\r",
-							"// pm.environment.set('preSeats', JSON.stringify(preSeats));\r",
+							"pm.environment.set('preSeats', JSON.stringify(preSeats));\r",
 							"//     pm.test(\"Expected occupied seats to not include seats to be booked\", () => {\r",
 							"//         console.log(res[0].occupiedSeats, pm.expect(res[0].occupiedSeats).not.to.include(\"11\"))\r",
 							"//     //  pm.expect(res[0].occupiedSeats).not.to.include(\"11\")\r",
