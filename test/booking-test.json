@@ -6,6 +6,74 @@
 	},
 	"item": [
 		{
+			"name": "Get unoccupied seats",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set('id', 97);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let res = pm.response.json()\r",
+							"  pm.test(\"Expected status code 200\", () => {\r",
+							"      pm.expect(pm.response.code).to.equal(200)\r",
+							"  });\r",
+							"\r",
+							"let occupiedSeats = res[0].occupiedSeats.split(\", \").map(x => +x);\r",
+							"\r",
+							"let preSeats = [];\r",
+							"for(let i = 1; i < 82; i++){\r",
+							"    !occupiedSeats.includes(i) && preSeats.push(i);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"// pm.environment.set('preSeats', JSON.stringify(preSeats));\r",
+							"//     pm.test(\"Expected occupied seats to not include seats to be booked\", () => {\r",
+							"//         console.log(res[0].occupiedSeats, pm.expect(res[0].occupiedSeats).not.to.include(\"11\"))\r",
+							"//     //  pm.expect(res[0].occupiedSeats).not.to.include(\"11\")\r",
+							"// //     pm.expect(res[0].occupiedSeats).not.to.include(preSeats[1])\r",
+							"//     })\r",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/occupied_seats/?screeningId={{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"occupied_seats",
+						""
+					],
+					"query": [
+						{
+							"key": "screeningId",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create booking",
 			"event": [
 				{
@@ -62,7 +130,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n \"bookingNumber\":   \"{{bookingNumber}}\",\r\n \"screeningId\":  \"{{screeningId}}\",\r\n \"userId\":   \"{{userId}}\"\r\n\r\n}",
+					"raw": "{\r\n \"bookingNumber\":   \"{{bookingNumber}}\",\r\n \"screeningId\":  \"{{screeningId}}\",\r\n \"userId\":   \"{{userId}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -92,16 +160,18 @@
 					"script": {
 						"exec": [
 							"\r",
+							"let freeSeats = JSON.parse(pm.environment.get('preSeats'));\r",
+							"\r",
 							" if(!pm.environment.get('seatData')){\r",
 							"     pm.environment.set('seatData', JSON.stringify([\r",
 							"     {\r",
 							"        \"bookingId\":  \"null\",\r",
-							"        \"seatId\":  11,\r",
+							"        \"seatId\":  freeSeats[0],\r",
 							"        \"ticketTypeId\":   3\r",
 							"    },\r",
 							"    {\r",
 							"        \"bookingId\":  \"null\",\r",
-							"        \"seatId\":  12,\r",
+							"        \"seatId\":  freeSeats[1],\r",
 							"        \"ticketTypeId\":   3\r",
 							"    }\r",
 							"    ]))\r",
@@ -115,7 +185,7 @@
 							"let seat = seatData[seatsIndex]\r",
 							"\r",
 							"seat.bookingId = +mockData.id;\r",
-							"seatData[seatsIndex] = seat; // +pm.environment.get('seatsIndex')\r",
+							"seatData[seatsIndex] = seat; // +pm.environment.get('seatsIndex')   \r",
 							"pm.environment.set('seatData', JSON.stringify(seatData));\r",
 							"\r",
 							"for(let [key,val] of Object.entries(seat)){\r",
@@ -270,6 +340,9 @@
 							"let res = pm.response.json()\r",
 							"let seatData = JSON.parse(pm.environment.get('seatData'))\r",
 							"\r",
+							"let ticketTypes = res[0].ticketTypes.split(\", \").map(x => x);\r",
+							"\r",
+							"\r",
 							"  pm.test(\"Expected status code 200\", () => {\r",
 							"      pm.expect(pm.response.code).to.equal(200)\r",
 							"  });\r",
@@ -279,6 +352,9 @@
 							"      pm.expect(res[0].seats).to.include(seatData[1].seatId)\r",
 							"  })\r",
 							"\r",
+							"  pm.test(\"Expect the type of the ticket to be Adult\", () => {\r",
+							"      pm.expect(ticketTypes).to.include('Adult')\r",
+							"  })\r",
 							""
 						],
 						"type": "text/javascript"
