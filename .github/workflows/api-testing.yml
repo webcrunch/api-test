@@ -25,7 +25,7 @@ jobs:
       - name: start mysql
         run: sudo service mysql start
       - name: change password
-        run: mysqladmin --user=root --password=root password "user"
+        run: mysqladmin --user=root --password=root password "root"
       - name: restart mysql 
         run: sudo service mysql restart
       - name: test mysql status
