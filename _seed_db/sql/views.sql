@@ -48,16 +48,16 @@ CREATE VIEW bookings_overview AS SELECT
 FROM 
 	bookings,
 	users,
-	bookingsXseats,
+	bookingsxseats,
 	screenings_overview,
 	ticketTypes,
 	seats
 WHERE 
   bookings.screeningId = screenings_overview.screeningId
   && bookings.userId = users.id
-  && bookingsXseats.bookingId = bookings.id
-  && seats.id = bookingsXseats.seatId
-  && ticketTypes.id = bookingsXseats.ticketTypeId
+  && bookingsxseats.bookingId = bookings.id
+  && seats.id = bookingsxseats.seatId
+  && ticketTypes.id = bookingsxseats.ticketTypeId
 GROUP BY bookingId;
 
 
@@ -70,12 +70,12 @@ CREATE VIEW occupied_seats AS SELECT
 FROM 
 	screenings_overview,
 	seats,
-	bookingsXseats,
+	bookingsxseats,
 	bookings,
 	seats_per_auditorium
 WHERE
-	seats.id = bookingsXseats.seatId
-	&& bookings.id = bookingsXseats.bookingId
+	seats.id = bookingsxseats.seatId
+	&& bookings.id = bookingsxseats.bookingId
 	&& bookings.screeningId = screenings_overview.screeningId
 	&& seats_per_auditorium.name = screenings_overview.auditorium
 GROUP BY screenings_overview.screeningId;
@@ -86,10 +86,10 @@ CREATE VIEW totals AS SELECT
 	COUNT(*) AS totalPeople,
 	SUM(ticketTypes.price) AS totalSales
   FROM 
-    bookingsXseats,
+    bookingsxseats,
   	ticketTypes
   WHERE 
-     bookingsXseats.ticketTypeId = ticketTypes.id
+     bookingsxseats.ticketTypeId = ticketTypes.id
   GROUP BY ticketTypes.id
 UNION 
 SELECT 
@@ -97,7 +97,7 @@ SELECT
 	COUNT(*),
 	SUM(ticketTypes.price) 
   FROM 
-    bookingsXseats,
+    bookingsxseats,
   	ticketTypes
   WHERE 
-     bookingsXseats.ticketTypeId = ticketTypes.id
+     bookingsxseats.ticketTypeId = ticketTypes.id

@@ -40,7 +40,7 @@ for (let screening of screenings) {
     for (let seat of bookedSeats) {
       let ticketTypeId = Math.floor(Math.random() * 3) + 1;
       queries.push(`
-        INSERT INTO bookingsXseats (bookingId, seatId, ticketTypeId)
+        INSERT INTO bookingsxseats (bookingId, seatId, ticketTypeId)
         VALUES (${bookingId}, ${seat}, ${ticketTypeId})
       `);
     }

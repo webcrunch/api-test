@@ -55,12 +55,12 @@ CREATE TABLE `bookings` (
 
 
 
-# Dump of table bookingsXseats
+# Dump of table bookingsxseats
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `bookingsXseats`;
+DROP TABLE IF EXISTS `bookingsxseats`;
 
-CREATE TABLE `bookingsXseats` (
+CREATE TABLE `bookingsxseats` (
   `bookingId` int unsigned NOT NULL,
   `seatId` int unsigned NOT NULL,
   `ticketTypeId` int unsigned NOT NULL,
